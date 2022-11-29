@@ -1,0 +1,165 @@
+import { comic, prism } from '@mdx-deck/themes'
+
+export const theme = {
+  ...comic,
+  ...prism,
+}
+
+# React & TypeScript
+grab bag
+
+___
+## TypeScript
+A typed superset of JavaScript
+
+___
+## Benefits
+- Self documenting code 
+- Catch bugs during development
+- early access to ECMAScript features
+
+___
+## Structural Typing (not nominal)
+
+```typescript
+type US_DOLLAR = number
+type BRITISH_POUND = number
+const my_money: US_DOLLAR = 10
+const your_money: BRITISH_POUND = my_money
+```
+
+[TypeScript Playground](https://www.typescriptlang.org/play?#code/C4TwDgpgBAqgygfQCIHkAyaCCAlKBeKAOwFcBbAIwgCcAoUSKAIWwEkAVFuACQQAUUYAOST4iZSrRoBjAPaEAzsCikQCUnIggAXLESoMOUQEYADNLmKoIGcSpqN2pqw7c+A4aJX3CmmjQCWhMDUAGYAhlLQaP6KED5UUADeNFBQEGFU8jrAVMQQNAC+frIKSmEAFukAJqLJqemZ2bnQYfJQJYoANIV+IcSEUsD+clAANjHBhAAU47HxOtFz1ACUSSlQVBDAtoRjE3HUAHQN8j00s5NTFdXLxRZK5JVhNQSJUAD07wv78esnTXkoK12vduvUQBAslAAOQySCEaFnT5QR7VKAxKAANzC4yq5x+U1Rz1u5lKQJ8UgA1rU-hCoeFRvJ8kV8XMrhTqcD+pTCDIAO67YGLSYrPxAA)
+
+---
+
+## Type Branding
+
+What if you really do want nominal types?
+
+```typescript
+type Brand<K, T> = K & { __brand: T }
+```
+
+https://www.typescriptlang.org/branding/
+
+[Playground](https://www.typescriptlang.org/play?#code/PTAECMCcEMDsBMCm9QBcCeAHRBnU1JFQBXHRAM2IBtQBLWUTK6AYyIHtzRZ2Bbe6DQzYcAKGFEAqgGUA+gBEA8gBllAQQBKoALzdivcIkigAZKADeoWbKhx4ALlAByGQpXqNTgL7isRAEIaAJIAKkHSABKyAAqKkgBy8jp6BkamFlY2MAiOToGh4VGxCfJOoD6iLOywOKigvOiyvNWI6MkAjAAM+HiuSqqaldW1oOjsxJBNLY1GxroNU7CtPaD5YZExcYmiQzV1YxOLy7pdK2uFmyU7lLAsqLTVoADmiKgAstMAFM1L6I6w+kMkAAlP9AWlzKJQKBCKgJgwfq1RBUqntQAAPZIvd5fA6TRHoYHXYi3e6PbFvdAfX7faaOPruTSglJAixQmGveH1abInaokZtXQUqm48b46YrBkDDRE3zYVbZeAAHgA0gAaUAhAB8yRV6Us1lsOU15R2ElWoQAwoogvFkv5FUqAalIBq8labfEnFqgA)
+
+--- 
+## Utility Types
+```typescript
+type Brand<K, T> = K & { __brand: T }
+```
+- ReturnType
+- Parameters
+
+```typescript
+type Capitalize<S extends string> = S extends `${infer K}${infer R}` ? `${Uppercase<K>}${R}` : '';
+```
+
+- [ts-toolbelt](https://github.com/millsp/ts-toolbelt#utility-index)
+- [utility types](https://www.typescriptlang.org/docs/handbook/utility-types.html)
+
+---
+## Fun with Strings
+
+String literal and template literal types.
+
+[Playground](https://www.typescriptlang.org/play?#code/MYewdgzgLgBANgUylBAnA+lAngBwQQxgF4YBvGbPALhgHIBVABUYFEAlAYQEEBlF2mAF8YAKBGhIsRMjSZcCAEbEyFeTQbN23PgPwQYE6ELGUEMJq068WyjZe39x4I9JQZTwGuVM0LW60LKKj50flY6xiIAlmBuAGb4wGY8UPgoZCIwMHFRqNAAcvgAtgg0HPg4UalwUQBeCAA80KgxAOYAfJnwelCFJWUVVfg19U1QLWAdXTgAFuClMGAArkUKaCKCJvIwXMBQUeDKpF0A2gDSMDEwANYIWCBxMClpCAC6XlkhAAYQSAAkpHKlWqdUaZ3agi+ABoYDh8Fg4CB8AATGjPFDnV7GQQnW73R7ot5iQywVAIZFLJKoZQACmgLzRqRQMMS+3ANF2bLAAEpiO0MlkYAB6IUAOnFZIpVPgIFaUWAXRgZKgS1QYBg9JQG2JzlgrIOYA5ewNRy6IQARL8oAAxXIFYoIc1Q6bwxEomjmgDqw2RIHNGyAA)
+
+- [Binary to Decimal](https://www.typescriptlang.org/play?#code/PQKgUABBBsCMAssIFoICECWA7AhgJwE8IAXAewgBEBTAYwwFscAbSFZdj1gIyIHdTiAZwCuggBYYIACgAC-IaIkBKCAGIx+ACZrGxMa1aqjEAIrCqg4hlJYDUAJL0ADkyr0qWYhAAGmXIQAVUmo6RiYAHgBlAD5vCF4JGjESHABrCwgcLAgqAA8cGi9LPGwAcxICJyofSLiaG0EMSzKIAAZMrG0kLO08KmJhPCxBDpz8wogsYXouKjwKqoh6vD7BJxtNFt4MPRq4hI89iCaIPtKtKm0cEZwILmx8AgA6VgBNUmElrMzBEXcSDRePTVVxYUq7UgAMyOJyoAEdhMwSORSPNXL8Ad8ABwdbTeWrHEZYAQ5ZzEZ52HzebxCVjkxYAJQsSAAvOgHoFgrQGMxwgByWCtPnRADcEGAwDGVUKl2Rd2qACY6ZVqkzBAqIGy-I8giEeRE+a1WrBYMKxRKpbRiLKyPKIABmVjU7yU6IQABqGCovAgNggAHEdgAJYRcABcEDExGITkEYYlQiSTwAVoInqjSsA4IgwCBgGAC6AIAB9Utl8tliDvQYQADCpE01SDc2qFbbpYgeYL9OqADlprM8EEAIIrHAEcIBMbWzpEgdzAA0EAZ048mhGsAA2gBdTUQHdutkMzd80HgsR83d5GfriBTgD8y4gEf7MzmI7HE4CS83Tz-DKXWBt1FbsVQDfoAm2GgqEnVdZwgYQsFSYleCwA891-P9vwgP8ngCbcRVAxZtU5PUwiiODb2KMolzVYQmC8a81xGRDkNIVCdww4C90iSiRm8AASABvbBITmCAADE+Mmec8AAX2E0TxIZOSXSgR8SIIXVuXIgD91w-0IKgmC6IY6Il1w19Bw-PBx3CCTomA1gI1M4gTzPPRL0IsAi3bNs7wsLxa2uDI-IrTt8wYdY8CBMChIgABRBFmCXBLcmlLw5IgSE8FIegID5GQe2QJJmDPCxgGEKwmEEPkiOqGgQpGNlN1YNKMvCJLEQiTTtNCXkBSFcyIAVaJzLa9KrU65Keo5LSuX6g0jRNYUl3tMaFwmjqut5XqFv1fkjSOo7VraDatqmnbZv8eayIGk0Hoe06FQAVhe86oHay6ZvCPa7oNQVAeNIbAIAdlac7twLQsQBLMLKwkwZgXmSJrVjOH4eLCKfPAKA3UiDQ+ggAgPnmQRSCYKrrGGCMoxjOME0EJNU3TPBM2zWBgCyQReDmVg3U9b0IHJymrAaWno1jeNgETMQUzTDMswQTmRaphp+YgABZVFqlrDQmHKuNI0lhmZaZuWWYzXN8zAIA)
+
+___
+## Tips #1
+
+```jsx
+const MyComponent = <T>(props: MyComponentProps<T>) => {
+// const MyComponent = <div>(props: MyComponentProps<T>) => {
+// const MyComponent = <T extends unknown>(props: MyComponentProps<T>) => {
+// const MyComponent = <T,>(props: MyComponentProps<T>) => {
+//....
+}
+```
+
+---
+## Tips #2
+- nullish coalescing operator
+```typescript
+type Possibly = {
+  value?: {
+    value?: {
+      value?: {
+        value?: number
+      }
+    }
+  }
+}
+const x = {} as Possibly
+
+const value = x?.value?.value?.value?.value
+
+type Props = {
+  onClick?: () => void
+}
+
+const props = {} as Props
+
+props.onClick()
+
+if (props.onClick) props.onClick(); 
+
+props.onClick?.()
+```
+
+[Playground](https://www.typescriptlang.org/play?ssl=25&ssc=18&pln=2&pc=1#code/FAFwngDgpgBACgewM5IJYCMA2YYF4YDewMMAbgIaYCuUA-AFyHElmU0NMssXV2NFcuPdowB2VALbooAJ2ZcAvvJhKSSpQGMEopCBgAPPIQUxySeMjRYwwYFp17hsfPtoA6J+88e2dH71twaHgZBAhzfAEYbQBhTFQNAGsOAAoASjwAPjIEVAATYCU7bV0YCFDwowITMxCwpFty+rdY+KT021QAMxgUpvCW0TiExIz+pEHh9rSAbhhGionWkfcOoA)
+
+
+---
+
+## TypeScript 4.9 satisfies
+
+```typescript
+const cat: Cat = {}
+const cat = {} as Cat
+const cat satisfies Cat
+```
+
+[Playground](https://www.typescriptlang.org/play?ts=5.0.0-dev.20221122#code/JYOwLgpgTgZghgYwgAgKIFsAOAbA9gTwhQG8AoZC5MfTCALmQHJ04Q4BzaR5AHyYFcQAE2jZQ7buUrAsiMA2YQhwfum59GAC2DtN6pgCN+UcLiitOjUgF9SpBLhABnMMghY8hCAEEGGHAREFAC8yGSUVDT0AsKi4owANFIUMphyCkYmYGYWEFa29o4ubh6BEABCyKHhlNS0CoIiUGIgEkkRqemGxqbmrXk2yE5wYMBOMMAQTmilXnbzQA)
+
+---
+
+## Data Validation
+Runtime type checking.
+- [io-ts](https://github.com/gcanti/io-ts)
+- [zod](https://zod.dev/)
+
+--- 
+
+## React & Redux Tips
+
+---
+
+## Use a Redux Thunk (prevent over rendering in a form)
+- over selecting is an anti-pattern
+- perform logic in selectors whenever possible (Reselect)
+
+[Redux 
+Demo](https://codesandbox.io/s/elastic-silence-2o1xw7?file=/src/App.tsx)
+
+___
+
+## The Apropalypse
+Inversion of control is easier to test and maintain than too many props. 
+
+[Demo](https://codesandbox.io/s/practical-sound-9ogdl?file=/src/AccordionExamples.tsx:2958-3664)
+
+[Article](https://kentcdodds.com/blog/inversion-of-control)
+
+---
+
+**Resources**
+- [Kent Dodds React Patterns](https://kentcdodds.com/blog)
+- https://www.totaltypescript.com/tips
+- https://github.com/type-challenges/type-challenges
+- https://basarat.gitbook.io/typescript/
+- https://www.typescriptlang.org/docs/
+- https://www.typescriptlang.org/docs/handbook/release-notes/overview.html
